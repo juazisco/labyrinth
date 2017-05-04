@@ -28,11 +28,11 @@ import os.path as osp
 
 from gi.repository import Gtk
 
-from labyrinth import utils
-from labyrinth import Browser
-from labyrinth import prefs
+import utils
+import Browser
+import prefs
 try:
-    from labyrinth import defs
+    import defs
     localedir = abspath(join(defs.DATA_DIR, "locale"))
 except:
     localedir = ""

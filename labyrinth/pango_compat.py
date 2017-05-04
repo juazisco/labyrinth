@@ -59,7 +59,7 @@ class AttrIterator():
 def get_iterator(self):
     tmplist = []
     def fil(val, data):
-        print val, data
+        print(val, data)
         tmplist.append(val)
         return False
     self.filter(fil, None)

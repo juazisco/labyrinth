@@ -217,10 +217,10 @@ class TextThought (BaseThought.BaseThought):
 
         self.layout = Pango.Layout(self.pango_context)
         self.layout.set_text (show_text, -1)
-        print "123"
+        print("123")
         # This next line appears to cause segfaults
-        #self.layout.set_attributes(self.attrlist)
-        print "456"
+        self.layout.set_attributes(self.attrlist)
+        print("456")
         self.recalc_position ()
 
     def recalc_position (self):
@@ -312,7 +312,7 @@ class TextThought (BaseThought.BaseThought):
             # We should draw the entire bounding box around ourselves
             # We should also have our coordinates figured out.      If not, scream!
             if not self.ul or not self.lr:
-                print "Warning: Trying to draw unfinished box "+str(self.identity)+". Aborting."
+                print("Warning: Trying to draw unfinished box "+str(self.identity)+". Aborting.")
                 return
             style = utils.STYLE_EXTENDED_CONTENT
             if len (self.extended_buffer.get_text()) == 0:
@@ -938,13 +938,13 @@ class TextThought (BaseThought.BaseThought):
                     attr = Pango.AttrUnderline(Pango.Underline.SINGLE, start, end)
                 elif attrType == "font":
                     font_name = str(n.getAttribute("value"))
-                    print font_name
+                    print(font_name)
                     #continue
                     pango_font = Pango.FontDescription (font_name)
                     attr = Pango.AttrFontDesc_(pango_font, start, end)
                 self.attributes.change(attr)
             else:
-                print "Unknown: " + n.nodeName
+                print("Unknown: " + n.nodeName)
         self.rebuild_byte_table ()
         self.recalc_edges ()
 
