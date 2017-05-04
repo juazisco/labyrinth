@@ -31,6 +31,7 @@ from gi.repository import Gtk
 import utils
 import Browser
 import prefs
+import pango_compat
 try:
     import defs
     localedir = abspath(join(defs.DATA_DIR, "locale"))

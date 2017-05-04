@@ -179,17 +179,29 @@ class MMapArea (Gtk.DrawingArea):
         self.font_name = style.font_desc.to_string()
         utils.default_font = self.font_name
 
-        utils.default_colors["text"] = utils.gtk_to_cairo_color(style.text[Gtk.StateType.NORMAL])
-        utils.default_colors["base"] = utils.gtk_to_cairo_color(style.base[Gtk.StateType.NORMAL])
-        self.background_color = style.base[Gtk.StateType.NORMAL]
-        self.foreground_color = style.text[Gtk.StateType.NORMAL]
-        utils.default_colors["bg"] = utils.gtk_to_cairo_color(style.bg[Gtk.StateType.NORMAL])
-        utils.default_colors["fg"] = utils.gtk_to_cairo_color(style.fg[Gtk.StateType.NORMAL])
+        utils.default_colors["text"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_color(w.get_style_context(), Gtk.StateFlags.NORMAL).to_color())
+        utils.default_colors["base"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_background_color(w.get_style_context(), Gtk.StateFlags.NORMAL).to_color())
+        self.background_color = Gtk.StyleContext.get_background_color(w.get_style_context(), Gtk.StateFlags.NORMAL).to_color()
+        self.foreground_color = Gtk.StyleContext.get_color(w.get_style_context(), Gtk.StateFlags.SELECTED).to_color() #implemetar
+        utils.default_colors["bg"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_background_color(w.get_style_context(), Gtk.StateFlags.NORMAL).to_color())
+        utils.default_colors["fg"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_color(w.get_style_context(), Gtk.StateFlags.NORMAL).to_color())
 
-        utils.selected_colors["text"] = utils.gtk_to_cairo_color(style.text[Gtk.StateType.SELECTED])
-        utils.selected_colors["bg"] = utils.gtk_to_cairo_color(style.bg[Gtk.StateType.SELECTED])
-        utils.selected_colors["fg"] = utils.gtk_to_cairo_color(style.fg[Gtk.StateType.SELECTED])
-        utils.selected_colors["fill"] = utils.gtk_to_cairo_color(style.base[Gtk.StateType.SELECTED])
+        utils.selected_colors["text"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_color(w.get_style_context(), Gtk.StateFlags.SELECTED).to_color())
+        utils.selected_colors["bg"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_background_color(w.get_style_context(), Gtk.StateFlags.SELECTED).to_color())
+        utils.selected_colors["fg"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_color(w.get_style_context(), Gtk.StateFlags.SELECTED).to_color())
+        utils.selected_colors["fill"] = utils.gtk_to_cairo_color(Gtk.StyleContext.get_background_color(w.get_style_context(), Gtk.StateFlags.SELECTED).to_color())
+
+        #utils.default_colors["text"] = utils.gtk_to_cairo_color(style.text[Gtk.StateType.NORMAL])
+        #utils.default_colors["base"] = utils.gtk_to_cairo_color(style.base[Gtk.StateType.NORMAL])
+        #self.background_color = style.base[Gtk.StateType.NORMAL]
+        #self.foreground_color = style.text[Gtk.StateType.NORMAL]
+        #utils.default_colors["bg"] = utils.gtk_to_cairo_color(style.bg[Gtk.StateType.NORMAL])
+        #utils.default_colors["fg"] = utils.gtk_to_cairo_color(style.fg[Gtk.StateType.NORMAL])
+
+        #utils.selected_colors["text"] = utils.gtk_to_cairo_color(style.text[Gtk.StateType.SELECTED])
+        #utils.selected_colors["bg"] = utils.gtk_to_cairo_color(style.bg[Gtk.StateType.SELECTED])
+        #utils.selected_colors["fg"] = utils.gtk_to_cairo_color(style.fg[Gtk.StateType.SELECTED])
+        #utils.selected_colors["fill"] = utils.gtk_to_cairo_color(style.base[Gtk.StateType.SELECTED])
 
     def transform_coords(self, loc_x, loc_y):
         if hasattr(self, "transform"):
@@ -1362,7 +1374,7 @@ class CursorFactory:
         self.__dict__ = self.__shared_state
 
     def get_cursor(self, cur_type):
-        if not self.cursors.has_key(cur_type):
+        if not self.cursors.get(cur_type):
             cur = Gdk.Cursor(cur_type)
             self.cursors[cur_type] = cur
         return self.cursors[cur_type]

@@ -1,3 +1,4 @@
+from copy import copy
 from gi.repository import Pango
 
 class AttrIterator():
@@ -68,7 +69,7 @@ def get_iterator(self):
 
 setattr(Pango.AttrList, 'get_iterator', get_iterator)
 
-from copy import copy
+
 class _InstantiableAttribute(Pango.Attribute):
     _attrtype = None
     def __new__(cls, value, start_index=0, end_index=1):
@@ -98,9 +99,9 @@ class AttrVariant(Pango.Attribute):
    pass
 Pango.AttrVariant = AttrVariant
 
-class AttrVariant(Pango.Attribute):
-   pass
-Pango.AttrVariant = AttrVariant
+#class AttrVariant(Pango.Attribute):
+#   pass
+#Pango.AttrVariant = AttrVariant
 
 class AttrStretch(Pango.Attribute):
    pass

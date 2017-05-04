@@ -533,7 +533,7 @@ class LabyrinthWindow (GObject.GObject):
                 counter += 1
 
         with open(self.save_file, 'w') as f:
-            f.write(save_string)
+            f.write(save_string.toString())
         self.emit ('file_saved', self.save_file, self)
 
     def export_map_cb(self, event):
