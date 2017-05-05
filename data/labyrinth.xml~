@@ -63,7 +63,6 @@
           <object class="GtkFrame" id="frame1">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="vexpand">True</property>
             <property name="border_width">6</property>
             <property name="label_xalign">0</property>
             <property name="shadow_type">none</property>

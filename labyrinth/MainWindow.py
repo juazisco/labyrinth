@@ -26,7 +26,7 @@ import tarfile
 import gettext
 _ = gettext.gettext
 import xml.dom.minidom as dom
-
+from functools import reduce
 # Gtk stuff
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -342,7 +342,7 @@ class LabyrinthWindow (GObject.GObject):
             self.underline_block = True
             self.underline_widget.set_active(underline)
         if pango_font:
-            font_name = pango_font.to_string()
+            font_name = str(pango_font)
             self.font_widget.set_font_name (font_name)
             self.MainArea.set_font(font_name)
         else:
@@ -533,13 +533,13 @@ class LabyrinthWindow (GObject.GObject):
                 counter += 1
 
         with open(self.save_file, 'w') as f:
-            f.write(save_string.toString())
+            f.write(str(save_string,'utf-8'))
         self.emit ('file_saved', self.save_file, self)
 
     def export_map_cb(self, event):
         chooser = Gtk.FileChooserDialog(title=_("Save File As"), action=Gtk.FileChooserAction.SAVE, \
                     buttons=(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
-        chooser.set_current_name ("%s.mapz" % self.main_window.title)
+        chooser.set_current_name ("%s.mapz" % self.main_window.get_title())
         response = chooser.run()
         if response == Gtk.ResponseType.OK:
             filename = chooser.get_filename ()
@@ -624,13 +624,14 @@ class LabyrinthWindow (GObject.GObject):
     def export_cb (self, event):
         maxx, maxy = self.MainArea.get_max_area ()
 
-        x, y, width, height, bitdepth = self.MainArea.window.get_geometry ()
+        x, y, width, height = Gdk.Window.get_geometry(self.MainArea.get_window())#.window.get_geometry ()
+        bitdepth=0
         glade = Gtk.Builder()
         glade.add_from_file(utils.get_data_file_name('labyrinth.xml'))
         dialog = glade.get_object('ExportImageDialog')
         box = glade.get_object('dialog_insertion')
         fc = Gtk.FileChooserWidget(Gtk.FileChooserAction.SAVE)
-        box.pack_end (fc)
+        box.pack_end(fc,True,True,0)
 
         filter_mapping = [  (_('All Files'), ['*']),
                                                 (_('PNG Image (*.png)'), ['*.png']),
@@ -645,7 +646,7 @@ class LabyrinthWindow (GObject.GObject):
                 fil.add_pattern(pattern)
             fc.add_filter(fil)
 
-        fc.set_current_name ("%s.png" % self.main_window.title)
+        fc.set_current_name ("%s.png" % self.main_window.get_title())
         rad = glade.get_object('rb_complete_map')
         rad2 = glade.get_object('rb_visible_area')
         self.spin_width = glade.get_object('width_spin')

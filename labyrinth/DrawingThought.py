@@ -66,6 +66,7 @@ class DrawingThought (BaseThought.ResizableThought):
         self.points = []
         self.text = _("Drawing #%d" % ndraw)
         self.drawing = 0
+        
         if not loading:
             margin = utils.margin_required (utils.STYLE_NORMAL)
             self.ul = (coords[0]-margin[0], coords[1]-margin[1])

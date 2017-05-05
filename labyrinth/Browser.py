@@ -256,7 +256,7 @@ class Browser (Gtk.Window):
             dialog.hide ()
             del (dialog)
             return
-        dialog = Gtk.MessageDialog (self, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, gtk.ButtonsType.YES_NO,
+        dialog = Gtk.MessageDialog (self, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.YES_NO,
                                                                 _("Do you really want to delete this Map?"))
         resp = dialog.run ()
         dialog.hide ()
@@ -272,7 +272,7 @@ class Browser (Gtk.Window):
             MapList.delete(map)
             self.view.emit ('cursor-changed')
             return
-        raise KeyError("Cant remove map of window %s" % mobj)
+        #raise KeyError("Cant remove map of window %s" % mobj)
 
     def file_save_cb (self, mobj, new_fname, mobj1):
         map = MapList.get_by_window(mobj)

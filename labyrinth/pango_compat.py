@@ -73,7 +73,7 @@ setattr(Pango.AttrList, 'get_iterator', get_iterator)
 class _InstantiableAttribute(Pango.Attribute):
     _attrtype = None
     def __new__(cls, value, start_index=0, end_index=1):
-        inst = copy(prototypes[cls._attrtype])
+        inst = prototypes[cls._attrtype]
         inst.value = value
         inst.start_index = start_index
         inst.end_index = end_index
@@ -111,7 +111,9 @@ Pango.AttrStretch = AttrStretch
 class _InstantiableColorAttribute(Pango.Attribute):
     _attrtype = None
     def __new__(cls, r, g, b, start_index=0, end_index=1):
-        inst = copy(prototypes[cls._attrtype])
+        #print(prototypes[cls._attrtype])
+        #print(help(prototypes[cls._attrtype]))
+        inst = prototypes[cls._attrtype]
         inst.color = Pango.Color()
         inst.color.red, inst.color.green, inst.color.blue =  r, g, b
         inst.start_index = start_index

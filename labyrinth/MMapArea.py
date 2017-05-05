@@ -133,7 +133,7 @@ class MMapArea (Gtk.DrawingArea):
         self.current_cursor = None
         self.do_filter = True
         self.is_bbox_selecting = False
-
+        self.bbox_current = []
         self.unending_link = None
         self.nthoughts = 0
 
@@ -408,7 +408,7 @@ class MMapArea (Gtk.DrawingArea):
         return True
 
     def motion (self, widget, event):
-        coords = self.transform_coords (event.get_coords()[0], event.get_coords()[1])
+        coords = self.transform_coords(event.get_coords()[0], event.get_coords()[1])
 
         if self.motion:
             if self.motion.handle_motion (event, self.mode, coords):
@@ -817,8 +817,8 @@ class MMapArea (Gtk.DrawingArea):
         if self.is_bbox_selecting:
             xs = self.bbox_origin[0]
             ys = self.bbox_origin[1]
-            xe = self.bbox_current[0] - xs
-            ye = self.bbox_current[1] - ys
+            #xe = self.bbox_current[0] - xs
+            #ye = self.bbox_current[1] - ys
 
             xs,ys = context.user_to_device(xs, ys)
             xe,ye = context.user_to_device_distance(xe, ye)

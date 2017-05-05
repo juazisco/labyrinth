@@ -87,12 +87,12 @@ class BaseThought (GObject.GObject):
     # before you start doing you're own thing with thoughts
     # save: the save document passed into the derived constructor
     # elem_type: a string representing the thought type (e.g. "image_thought")
-    def __init__ (self, save, elem_type, undo, background_color, foreground_color):
+    def __init__(self, save, elem_type, undo, background_color, foreground_color):
         # Note: Once the thought has been successfully initialised (i.e. at the end
         # of the constructor) you MUST set all_okay to True
         # Otherwise, bad things will happen.
         self.all_okay = False
-        super (BaseThought, self).__init__()
+        super(BaseThought, self).__init__()
         self.ul = self.lr = None
         self.am_primary = False
         self.am_selected = False
@@ -107,13 +107,13 @@ class BaseThought (GObject.GObject):
         self.background_color = background_color
         self.foreground_color = foreground_color
         self.model_iter = None
-        extended_elem = save.createElement ("Extended")
-        self.extended_buffer = TextBufferMarkup.ExtendedBuffer (self.undo, extended_elem, save)
+        extended_elem = save.createElement("Extended")
+        self.extended_buffer = TextBufferMarkup.ExtendedBuffer(self.undo, extended_elem, save)
         self.extended_buffer.set_text("")
-        self.extended_buffer.connect ("set_focus", self.focus_buffer)
-        self.extended_buffer.connect ("set_attrs", self.set_extended_attrs)
-        self.element = save.createElement (elem_type)
-        self.element.appendChild (extended_elem)
+        self.extended_buffer.connect("set_focus", self.focus_buffer)
+        self.extended_buffer.connect("set_attrs", self.set_extended_attrs)
+        self.element = save.createElement(elem_type)
+        self.element.appendChild(extended_elem)
 
     # These are self-explanitory.  You probably don't want to
     # overwrite these methods, unless you have a very good reason
